@@ -1,0 +1,9 @@
+---
+# tasks file for roles/initial-setup
+- include: install-packages.yml
+- include: arp-persistence.yml
+- include: enable-cgroup-memory.yml
+- include: hosts.yml
+- include: update-hostname.yml
+- include: mount-volumes.yml
+- include: reboot-system.yml

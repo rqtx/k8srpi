@@ -1,0 +1,53 @@
+- name: Install NFS Server
+  become: yes
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - nfs-kernel-server
+
+- name: Create NFS Export Directory
+  become: yes
+  file:
+    path: "{{ export_folder }}"
+    owner: nobody
+    group: nogroup
+    state: directory
+    mode: '777'
+
+- name: Check if volume is mouted
+  shell: mountpoint -q {{ export_folder }} && echo "mounted" || echo "not mounted"
+  register: mount_check
+  when:
+    uuid_provisioner is defined
+
+- name: Mount NFS Export Directory
+  become: yes
+  mount:
+    path: "{{ export_folder }}"
+    src:  UUID={{ uuid_provisioner }}
+    opts: auto,user,defaults
+    fstype: ext4
+    state: mounted
+  when:
+    uuid_provisioner is defined and mount_check.stdout == "not mounted"
+
+- name: Grant NFS Share Access to Client Systems
+  become: yes
+  lineinfile:
+    path: /etc/exports
+    search_string: "^{{ export_folder }} {{ item }}(rw,sync,no_subtree_check)"
+    line: "{{ export_folder }} {{ item }}(rw,sync,no_subtree_check)"
+    create: yes
+  with_items: "{{ groups['storage-access'] }}"
+
+- name: Export the NFS Share Directory
+  become: yes
+  shell:
+    exportfs -a
+
+- name: Restart nfs-kernel-server
+  become: yes
+  service:
+    state: restarted
+    name: nfs-kernel-server

@@ -1,0 +1,3 @@
+---
+# vars file for infra/roles/provisioner
+export_folder: "/persistentvolumes"

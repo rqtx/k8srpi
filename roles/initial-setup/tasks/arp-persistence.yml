@@ -1,0 +1,19 @@
+- name: Get gateway IP
+  shell: |
+          ip route | grep default | cut -f3 -d" "
+  register: gateway_ip
+
+- name: Get gateway MAC
+  shell: |
+          arp {{ gateway_ip.stdout }} | grep -o -E '([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}'
+  register: gateway_mac 
+
+- name: Persistence ARP Across System Reboots
+  copy: 
+    content: |
+      #!/bin/bash
+
+      arp -s {{ gateway_ip.stdout }} {{ gateway_mac.stdout }}
+      exit 0
+    dest: /etc/rc.local
+    mode: u=rwx,g=rwx,o=r

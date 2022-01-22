@@ -1,0 +1,17 @@
+- name: Create Bitcoin directory
+  become: yes
+  file:
+    path: /mnt/bitcoin
+    owner: nobody
+    group: nogroup
+    state: directory
+    mode: '777'
+
+- name: Mount usb volume
+  become: yes
+  mount:
+    path: /mnt/bitcoin
+    src: /dev/sda1
+    opts: auto,user,rw
+    fstype: ext4
+    state: mounted

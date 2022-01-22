@@ -1,0 +1,4 @@
+- name: Enable cgroup memory
+  copy: 
+    content: "{{ firmware_cmdline }}"
+    dest: /boot/firmware/cmdline.txt

@@ -1,0 +1,16 @@
+- name: Install packages apt
+  become: yes
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - iputils-arping
+    - net-tools
+    - nfs-common
+    - python
+    - wireless-tools
+
+- name: Install nerdctl
+  become: yes
+  shell: |
+          wget -qO- https://github.com/containerd/nerdctl/releases/download/v0.12.1/nerdctl-full-0.12.1-linux-arm64.tar.gz | sudo tar Cxzvvf /usr/local -
