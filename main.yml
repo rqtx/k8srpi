@@ -22,17 +22,17 @@
   roles:
   - { role: install-k8s,	tags: ["install_k8s_role"]}
 
-- hosts: k8s-master
+- hosts: k8s_master
   user: "{{ k8s_user }}"
   roles:
   - { role: init-cluster,	tags: ["init_cluster_role"]}
 
-- hosts: k8s-workers
+- hosts: k8s_workers
   user: "{{ k8s_user }}"
   roles:
   - { role: join-workers,	tags: ["join_workers_role"]}
 
-- hosts: storage-provisioner
+- hosts: storage_provisioner
   user: "{{ k8s_user }}"
   roles:
   - { role: provisioner,	tags: ["provisioner_role"]}

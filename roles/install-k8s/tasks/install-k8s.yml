@@ -63,9 +63,11 @@
     - kubectl
 
 - name: Prevent k8s packages from being upgraded
+  become: yes
   dpkg_selections:
-    name: 
+    name: "{{ item }}"
+    selection: hold
+  with_items:
     - kubelet
     - kubeadm
     - kubectl
-    selection: hold

@@ -5,9 +5,10 @@
   vars:
     packages:
     - iputils-arping
+    - lvm2
     - net-tools
     - nfs-common
-    - python
+    - python-is-python3
     - wireless-tools
 
 - name: Install nerdctl

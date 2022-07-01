@@ -16,14 +16,15 @@
     group: "{{ k8s_group }}"
     state: directory
 
-- name: Symlink the kubectl admin.conf to ~/.kube/config.
+- name: Copy /etc/kubernetes/admin.conf to ~/.kube/config
   become: yes
-  file:
-    src: /etc/kubernetes/admin.conf
+  ansible.builtin.copy:
+    remote_src: yes
+    src:  /etc/kubernetes/admin.conf
     dest: "/home/{{ k8s_user }}/.kube/config"
     owner: "{{ k8s_user }}"
     group: "{{ k8s_group }}"
-    state: link
+    mode: '0644'
 
 - name: Configure weavenet networking.
   shell: kubectl apply -f {{ default_kubernetes_cni_weavenet_manifestUrl }}
