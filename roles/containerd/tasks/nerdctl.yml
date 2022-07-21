@@ -1,0 +1,29 @@
+- name: Install nerdctl
+  become: yes
+  shell: |
+    wget -qO- https://github.com/containerd/nerdctl/releases/download/v0.22.0/nerdctl-0.22.0-linux-arm64.tar.gz | sudo tar Cxzvvf /usr/local -
+
+- name: enable-linger
+  become: yes
+  shell: |
+    loginctl enable-linger $(whoami)
+
+- name: /etc/subuid and /etc/subgid
+  become: yes
+  ansible.builtin.script: sub.py
+  args:
+    executable: python3
+
+- name: delegate.conf
+  become: yes
+  shell: |
+    mkdir -p /etc/systemd/system/user@.service.d
+    cat <<EOF | sudo tee /etc/systemd/system/user@.service.d/delegate.conf
+    [Service]
+    Delegate=cpu cpuset io memory pids
+    EOF
+    systemctl daemon-reload
+
+- name: containerd rootless
+  shell: |
+    wget -qO https://raw.githubusercontent.com/containerd/nerdctl/master/extras/rootless/containerd-rootless-setuptool.sh | bash -s install

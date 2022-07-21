@@ -4,14 +4,10 @@
     name: "{{ packages }}"
   vars:
     packages:
+    - apt-transport-https
     - iputils-arping
     - lvm2
     - net-tools
     - nfs-common
     - python-is-python3
     - wireless-tools
-
-- name: Install nerdctl
-  become: yes
-  shell: |
-          wget -qO- https://github.com/containerd/nerdctl/releases/download/v0.12.1/nerdctl-full-0.12.1-linux-arm64.tar.gz | sudo tar Cxzvvf /usr/local -

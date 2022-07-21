@@ -1,5 +1,6 @@
 ---
 # tasks file for roles/initial-setup
+- import_tasks: reboot-system.yml
 - import_tasks: install-packages.yml
 - import_tasks: arp-persistence.yml
 - import_tasks: enable-cgroup-memory.yml

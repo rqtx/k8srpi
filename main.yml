@@ -20,6 +20,11 @@
 - hosts: all
   user: "{{ k8s_user }}"
   roles:
+  - { role: containerd,	tags: ["containerd_role"]}
+
+- hosts: all
+  user: "{{ k8s_user }}"
+  roles:
   - { role: install-k8s,	tags: ["install_k8s_role"]}
 
 - hosts: k8s_master
