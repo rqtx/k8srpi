@@ -1,0 +1,17 @@
+[k8s_master]
+akira01 hostname=master01
+
+[k8s_workers]
+akira02 hostname=worker01,uuid_mount=2a8463e5-d898-4904-abd2-fc7f999113b2
+akira03 hostname=worker02
+
+[storage_provisioner]
+#akira02 uuid_provisioner=2d0c937d-df50-4aa1-90c5-a03daef3290c
+
+[storage_access:children]
+#k8s_master
+#k8s_workers
+
+[k8s_workers:vars]
+K8S_MASTER_NODE_IP=192.168.0.200
+K8S_API_SECURE_PORT=6443

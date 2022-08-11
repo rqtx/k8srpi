@@ -2,15 +2,8 @@
 akira01 hostname=master01
 
 [k8s_workers]
-akira02 hostname=worker01
+akira02 hostname=worker01 uuid_mount=babc75f4-02e8-4ca1-a1aa-5e7d9a04dbe2
 akira03 hostname=worker02
-
-[storage_provisioner]
-#akira02 uuid_provisioner=2d0c937d-df50-4aa1-90c5-a03daef3290c
-
-[storage_access:children]
-#k8s_master
-#k8s_workers
 
 [k8s_workers:vars]
 K8S_MASTER_NODE_IP=192.168.0.200
