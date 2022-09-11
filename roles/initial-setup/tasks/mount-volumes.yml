@@ -1,5 +1,5 @@
 - name: Check if volume is mouted
-  shell: mountpoint -q /mnt/storage-{{ uuid_mount }} && echo "mounted" || echo "not mounted"
+  shell: mountpoint -q /mnt/storage && echo "mounted" || echo "not mounted"
   register: mount_check
   when:
     uuid_mount is defined
@@ -7,18 +7,18 @@
 - name: Create mount directory
   become: yes
   file:
-    path: /mnt/storage-{{ uuid_mount }}
+    path: /mnt/storage
     owner: nobody
     group: nogroup
     state: directory
-    mode: '777'
+    mode: '775'
   when:
     uuid_mount is defined and mount_check.stdout == "not mounted"
 
 - name: Mount volume
   become: yes
   mount:
-    path: /mnt/storage-{{ uuid_mount }}
+    path: /mnt/storage
     src: UUID={{ uuid_mount }}
     opts: auto,user,rw
     fstype: ext4
