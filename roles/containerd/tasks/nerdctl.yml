@@ -1,7 +1,7 @@
 - name: Install nerdctl
   become: yes
   shell: |
-    wget -qO- https://github.com/containerd/nerdctl/releases/download/v0.22.0/nerdctl-0.22.0-linux-arm64.tar.gz | sudo tar Cxzvvf /usr/local -
+    wget -qO- https://github.com/containerd/nerdctl/releases/download/v0.22.0/nerdctl-0.22.0-linux-arm64.tar.gz | sudo tar Cxzvvf /usr/local/bin -
 
 - name: enable-linger
   become: yes
@@ -24,6 +24,20 @@
     EOF
     systemctl daemon-reload
 
+- name: Install rootless packages
+  become: yes
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - slirp4netns
+    - uidmap
+
+- name: rootlesskit
+  become: yes
+  shell: |
+    curl -sSL https://github.com/rootless-containers/rootlesskit/releases/download/v1.0.1/rootlesskit-$(uname -m).tar.gz | tar Cxzv /usr/local/bin
+
 - name: containerd rootless
   shell: |
-    wget -qO https://raw.githubusercontent.com/containerd/nerdctl/master/extras/rootless/containerd-rootless-setuptool.sh | bash -s install
+    containerd-rootless-setuptool.sh install
