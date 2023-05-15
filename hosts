@@ -3,7 +3,7 @@ akira01 hostname=master01
 
 [k8s_workers]
 akira02 hostname=worker01
-akira03 hostname=worker02
+#akira03 hostname=worker02
 
 [k8s_workers:vars]
 K8S_MASTER_NODE_IP=192.168.0.200
