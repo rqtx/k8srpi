@@ -25,7 +25,3 @@
     owner: "{{ k8s_user }}"
     group: "{{ k8s_group }}"
     mode: '0600'
-
-- name: Configure weavenet networking.
-  shell: kubectl apply -f {{ default_kubernetes_cni_weavenet_manifestUrl }}
-  register: weavenet_result

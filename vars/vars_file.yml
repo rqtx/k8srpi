@@ -1,4 +1,4 @@
-default_user: ubuntu
+default_user: blackbird
 k8s_user: blackbird
 k8s_group: k8s
 pub_file: /home/blackbird/.ssh/akira.pub

@@ -2,3 +2,4 @@
   copy: 
     content: "{{ firmware_cmdline }}"
     dest: /boot/firmware/cmdline.txt
+  when: ansible_facts['architecture'] == "aarch64"

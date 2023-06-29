@@ -12,3 +12,6 @@ skip-tags tags:
     
 ping:
     ansible all -m ping
+
+facts host:
+    ansible {{ host }} -m setup 
