@@ -10,6 +10,12 @@ tasks tags:
 skip-tags tags:
     ansible-playbook main.yml --extra-vars "@./vars/vars_file.yml" -kK -v --skip-tags {{ tags }}
     
+init_cluster:
+    ansible-playbook main.yml --extra-vars "@./vars/vars_file.yml" -kK -v -t "init_cluster"
+
+join_workers:
+    ansible-playbook main.yml --extra-vars "@./vars/vars_file.yml" -kK -v -t "join_workers"
+
 ping:
     ansible all -m ping
 

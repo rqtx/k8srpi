@@ -1,9 +1,9 @@
 [k8s_master]
-192.168.0.198 hostname=cp01
+192.168.0.200 hostname=cp01
 
 [k8s_workers]
-192.168.0.80 hostname=worker01
+192.168.0.104 hostname=worker01
 
 [k8s_workers:vars]
-K8S_MASTER_NODE_IP=192.168.0.198
+K8S_MASTER_NODE_IP=192.168.0.200
 K8S_API_SECURE_PORT=6443

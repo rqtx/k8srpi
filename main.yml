@@ -9,38 +9,38 @@
   become: yes
   user: "{{ default_user }}"
   roles:
-  - { role: initial-setup,	tags: ["setup", "initial_setup_role"]}
+  - { role: initial-setup,	tags: ["setup", "initial_setup_role", "init_cluster"]}
 
 - hosts: all
   become: yes
   user: "{{ default_user }}"
   roles:
-  - { role: create-users,	tags: ["setup", "create_users_role"]}
+  - { role: create-users,	tags: ["setup", "create_users_role", "init_cluster"]}
 
 - hosts: all
   user: "{{ k8s_user }}"
   roles:
-  - { role: containerd,	tags: ["setup", "containerd_role"]}
+  - { role: containerd,	tags: ["setup", "containerd_role", "init_cluster"]}
 
 - hosts: all
   user: "{{ k8s_user }}"
   roles:
-  - { role: install-k8s,	tags: ["install_k8s_role"]}
+  - { role: install-k8s,	tags: ["install_k8s_role", "init_cluster"]}
 
 - hosts: k8s_master
   user: "{{ k8s_user }}"
   roles:
-  - { role: init-cluster,	tags: ["init_cluster_role"]}
+  - { role: init-cluster,	tags: ["init_cluster_role", "init_cluster"]}
 
 - hosts: k8s_master
   user: "{{ k8s_user }}"
   roles:
-  - { role: k8s-getvars,	tags: [k8s_getvars_role]}
+  - { role: k8s-getvars,	tags: [k8s_getvars_role, join_workers, "init_cluster"]}
 
 - hosts: k8s_workers
   user: "{{ k8s_user }}"
   roles:
-  - { role: join-workers,	tags: ["join_workers_role"]}
+  - { role: join-workers,	tags: ["join_workers_role", join_workers, "init_cluster"]}
 
 - hosts: storage_provisioner
   user: "{{ k8s_user }}"
