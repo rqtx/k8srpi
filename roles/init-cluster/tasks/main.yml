@@ -1,3 +1,4 @@
 ---
 # tasks file for roles/init-cluster
 - import_tasks: init-cluster.yml
+- import_tasks: cni-cilium.yml
