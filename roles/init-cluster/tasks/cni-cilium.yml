@@ -10,4 +10,6 @@
 
 #- name: Install Cilium
 #  ansible.builtin.shell: |
-#    cilium install
+#    cilium install --version 1.14.3 \
+#    --set kubeProxyReplacement=true \
+#    --set gatewayAPI.enabled=true

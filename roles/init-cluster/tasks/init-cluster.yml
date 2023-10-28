@@ -4,10 +4,12 @@
     kubeadm reset --force
   register: kubeadmin_init
 
+# Cilium will fully replace it kube-proxy
+# https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/#kubeproxy-free
 - name: Initialize Kubernetes master with kubeadm init.
   become: yes
   command:
-    kubeadm init
+    kubeadm init --skip-phases=addon/kube-proxy
   register: kubeadmin_init
 
 - name: Ensure .kube directory exists.
