@@ -1,4 +1,5 @@
 # If you skip init-cluster it's necessary to create a new token 
+# kubeadm token generate
 - name: "Cluster token"
   shell: kubeadm token list | cut -d ' ' -f1 | sed -n '2p'
   register: K8S_TOKEN
