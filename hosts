@@ -3,7 +3,7 @@
 
 [k8s_workers]
 192.168.0.104 hostname=worker01
-192.168.0.162  hostname=worker02
+192.168.0.194  hostname=worker02
 
 [k8s_workers:vars]
 K8S_MASTER_NODE_IP=192.168.0.200
